@@ -1,0 +1,17 @@
+voter_id,full_name,address,phone,ticket_received,voted,vote_date,city,state,zipcode
+11,"A11dhor Bisw1","12-1 John Streetqqq","(718) 263-3104",0,1,"2026-08-23 22:03:11","Jackson Heightssss",NYdd,11367
+10,"Elaine Quiah3333","136-17B Jewel Avenue",7182633104,0,0,NULL,hhhh,bbb,11367
+12,"John Smith","123 street address",345-445-444,0,0,"2026-08-26 23:57:26",Flushing,NY,11234
+13,"John Smith1","123 street address",345-445-444,0,0,"2026-08-27 13:13:31",Flushing,NY,11234
+14,"John Smith2","123 street address",345-445-444,0,0,"2026-08-28 07:38:05",Flushing,NY,11234
+15,"John Smith3t","123 street address",345-445-444,0,0,"2026-08-27 14:34:35",Flushing,NY,11234
+16,"Elaine Quiah6","136-17B Jewel Avenue",7182633104,0,1,"2026-08-27 12:44:39",Flushing,NY,11367
+17,"Elaine Quiah123","136-17B Jewel Avenue",7182633104,0,0,NULL,Flushing,NY,11367
+111,"A11dhor Bisw1","12-1 John Streetqqq","(718) 263-3104",0,1,"2026-08-23 22:03:11","Jackson Heightssss",NYdd,11367
+110,"Elaine Quiah3333","136-17B Jewel Avenue",7182633104,0,0,NULL,hhhh,bbb,11367
+112,"John Smith","123 street address",345-445-444,0,0,"2026-08-26 23:57:26",Flushing,NY,11234
+113,"John Smith1","123 street address",345-445-444,0,0,"2026-08-27 13:13:31",Flushing,NY,11234
+114,"John Smith2","123 street address",345-445-444,0,0,"2026-08-28 07:38:05",Flushing,NY,11234
+115,"John Smith3t","123 street address",345-445-444,0,0,"2026-08-27 14:34:35",Flushing,NY,11234
+116,"Elaine Quiah6","136-17B Jewel Avenue",7182633104,0,1,"2026-08-27 12:44:39",Flushing,NY,11367
+117,"Elaine Quiah123","136-17B Jewel Avenue",7182633104,0,0,NULL,Flushing,NY,11367

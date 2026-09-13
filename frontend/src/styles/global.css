@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f7fa;
+}
+.countdown-banner {
+  background: #004aad;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.live-clock,
+.voting-status {
+  margin-top: 5px;
+  font-size: 1.1em;
+}
+.voting-window {
+  /*display: flex;*/
+  gap: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.horizontal-info span {
+  display: inline-block;
+}

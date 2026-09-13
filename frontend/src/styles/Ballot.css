@@ -1,0 +1,125 @@
+.ballot-container {
+  padding: 20px;
+}
+
+.ballot-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Position Section */
+.position-section {
+  margin-bottom: 40px;
+}
+
+.position-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/*.position-divider {
+  border: 0;
+  height: 2px;
+  background: #ccc;
+  margin-bottom: 20px;
+}*/
+.position-divider {
+  border: none;
+  border-top: 4px solid #444;   /* thickness + darker color */
+  margin: 10px 0;               /* spacing */
+  width: 100%;                  /* full width */
+}
+
+
+/* Candidate Row (horizontal layout) */
+.candidate-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Candidate Card */
+.candidate-card {
+  width: 260px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-align: center;
+}
+
+.candidate-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.candidate-card.selected {
+  border: 2px solid #0078ff;
+  background: #f0f7ff;
+}
+
+/* Candidate Photo */
+.candidate-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Candidate Info */
+.candidate-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Check Icon */
+.candidate-check img {
+  width: 32px;
+  height: 32px;
+}
+
+/* Submit Button */
+.ballot-submit {
+  margin-top: 25px;
+  padding: 12px 25px;
+  background: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.ballot-submit:hover {
+  background: #005fcc;
+}
+.ballot-submit:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 4px solid #ccc;
+  border-top-color: #0078ff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

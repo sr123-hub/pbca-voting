@@ -1,0 +1,22 @@
+.list-container {
+  margin-top: 20px;
+}
+
+.list-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.list-table th,
+.list-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-photo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+}

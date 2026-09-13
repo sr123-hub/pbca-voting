@@ -1,0 +1,29 @@
+.admin-wrapper {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: system-ui, sans-serif;
+}
+
+.admin-header {
+  margin-bottom: 24px;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #1e293b;
+}
+
+.admin-subtitle {
+  margin-top: 6px;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.admin-section {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}

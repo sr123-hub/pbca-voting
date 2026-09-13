@@ -1,0 +1,5 @@
+Host: containers-us-west-123.railway.app
+Port: 12345
+User: root
+Password: vRrKNJqgpJOHnqMmyqVmgLLgPrvoiJwj
+Database: railway
