@@ -48,3 +48,9 @@ CREATE TABLE votes (
     FOREIGN KEY (candidate_id) REFERENCES candidates(id),
     FOREIGN KEY (position_id) REFERENCES positions(id)
 );
+CREATE TABLE settings (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    vote_date DATETIME DEFAULT NOT NULL,
+    voting_start DATETIME DEFAULT NULL,
+    voting_end DATETIME DEFAULT NULL
+);
