@@ -2,8 +2,4 @@ node_modules/
 uploads/
 .env
 dist/
-<<<<<<< HEAD
 build/
-=======
-build/
->>>>>>> b3d3438f8fc27cc59e7512008e8146763c414d5d
