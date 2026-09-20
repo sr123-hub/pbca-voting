@@ -64,7 +64,7 @@ CREATE TABLE votes (
 -- ============================
 CREATE TABLE settings (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    vote_date DATETIME DEFAULT NOT NULL,
+    voting_date DATETIME DEFAULT NOT NULL,
     voting_start DATETIME DEFAULT NULL,
     voting_end DATETIME DEFAULT NULL
 );
