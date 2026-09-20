@@ -21,7 +21,8 @@ CREATE TABLE voters (
     zipcode VARCHAR(20),
     phone VARCHAR(20),
     voted TINYINT(1) DEFAULT 0,
-    vote_date DATETIME NULL
+    vote_date DATETIME NULL,
+    voting_location DEFAULT NULL
 );
 
 -- ============================
@@ -62,7 +63,8 @@ CREATE TABLE votes (
 -- SETTINGS TABLE
 -- ============================
 CREATE TABLE settings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    value VARCHAR(255) NOT NULL
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    vote_date DATETIME DEFAULT NOT NULL,
+    voting_start DATETIME DEFAULT NULL,
+    voting_end DATETIME DEFAULT NULL
 );

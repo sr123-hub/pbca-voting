@@ -34,6 +34,5 @@ INSERT INTO voters (voter_id, full_name, address, city, state, zipcode, phone) V
 ('V002', 'Test Voter', '456 Broadway', 'Brooklyn', 'NY', '11201', '555-5678');
 
 -- SETTINGS
-INSERT INTO settings (name, value) VALUES
-('voting_open', 'true'),
-('voting_message', 'Welcome to PBCA Voting System');
+INSERT INTO settings (voting_date, voting_start, voting_end) VALUES
+('2026-09-20', '2026-09-20 08:00:00','2026-09-20 21:00:00');
