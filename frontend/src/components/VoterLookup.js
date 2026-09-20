@@ -12,6 +12,8 @@ export default function VoterLookup({ onFound }) {
   const [status, setStatus] = useState("");
   const [votingInfo, setVotingInfo] = useState({});
 
+  // ⭐ NEW: Voting Location dropdown
+  const [votingLocation, setVotingLocation] = useState("");
 
   // 🕒 Live Clock
   useEffect(() => {
@@ -41,7 +43,6 @@ export default function VoterLookup({ onFound }) {
         date: votingDate,
         start: votingStartTime,
         end: votingEndTime
-       
       });
 
       const tick = () => {
@@ -91,14 +92,30 @@ export default function VoterLookup({ onFound }) {
       return;
     }
 
+    if (!votingLocation) {
+      setAlert({
+        show: true,
+        title: "Missing Voting Location",
+        message: "Please select a voting location.",
+        footer: (
+          <button className="alert-btn" onClick={() => setAlert({ show: false })}>
+            OK
+          </button>
+        ),
+      });
+      return;
+    }
+
     try {
       const data = await lookupVoter(voterId);
+
+      // ⭐ Attach selected location
+      data.voting_location = votingLocation;
 
       if (typeof onFound === "function") {
         onFound(data);
       }
     } catch (err) {
-      // Backend sends: { title, message } OR { error }
       setAlert({
         show: true,
         title: err.title || "Lookup Error",
@@ -128,24 +145,32 @@ export default function VoterLookup({ onFound }) {
   // 🧱 Main Voting Screen
   return (
     <>
-      {/* Countdown + Clock + Status */}
       <div className="countdown-banner">
         <div>{countdown}</div>
-
         <div className="live-clock">Current Time: {clock}</div>
 
-        
-
         <div className="voting-window">
-          <strong>Voting Date:</strong> {votingInfo.date}<br />
-          <strong>Start Time:</strong> {votingInfo.start}<br />
-          <strong>End Time:</strong> {votingInfo.end}
+          <br />Voting Date: {votingInfo.date}&nbsp;&nbsp;
+          Start Time: {votingInfo.start}&nbsp;&nbsp;
+          End Time: {votingInfo.end}
         </div>
 
+        {/* ⭐ NEW: Voting Location Dropdown */}
+        <div className="voting-location">
+          Voting Location:&nbsp;
+          <select
+            value={votingLocation}
+            onChange={(e) => setVotingLocation(e.target.value)}
+          >
+            <option value="">Select Location</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="Woodside">Woodside</option>
+            <option value="Jersey">Jersey</option>
+            <option value="Connecticut">Connecticut</option>
+          </select>
+        </div>
       </div>
 
-
-      {/* Voting Form */}
       <div>
         <h2>Enter Voter ID</h2>
 

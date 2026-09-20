@@ -15,6 +15,13 @@ import SummaryDashboard from "./components/SummaryDashboard";
 import VotingFlow from "./pages/VotingFlow";
 import AdminVotingDate from "./admin/AdminVotingDate";
 //import AdminLogin from "./components/AdminLogin";
+import ViewVoters from "./components/ViewVoters";
+import Winners from "./pages/Winners";
+//import VoterLookup from "./pages/VoterLookup";
+import NotFound from "./pages/NotFound";
+import LocationView from "./pages/LocationView";
+
+
 
 
 
@@ -29,6 +36,16 @@ export default function App() {
         {/* Summary */}
         <Route path="/summary" element={<SummaryDashboard />} />
 
+        <Route path="/view-voters" element={<ViewVoters />} />
+        {/* Static voting locations */}
+        <Route path="/voting-:location" element={<VoterLookup />} />
+        <Route path="/locations" element={<LocationView />} />
+
+
+        {/* Fallback */}
+        {/* 🚨 Fallback route */}
+        <Route path="*" element={<NotFound />} />
+
         {/* Admin Panel */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="voters" element={<ManageVoters />} />
@@ -36,12 +53,14 @@ export default function App() {
           <Route path="voting" element={<VotingScreen />} />
           <Route path="ballot" element={<BallotScreen />} />
           <Route path="/admin/voting-date" element={<AdminVotingDate />} />
-          
+          <Route path="winners" element={<Winners />} />
+
             
 
         </Route>
 
       </Routes>
     </BrowserRouter>
+    
   );
 }

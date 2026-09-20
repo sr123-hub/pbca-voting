@@ -1,30 +1,9 @@
 const db = require("../config/db");
 
-/*exports.submitVote = async (req, res) => {
-  const { voter_id, selections } = req.body;
-  const now = new Date();
-
-  for (const sel of selections) {
-    await db.query(
-      "INSERT INTO votes (voter_id, candidate_id, position_id, vote_time) VALUES (?, ?, ?, ?)",
-      [voter_id, sel.candidate_id, sel.position_id, now]
-    );
-  }
-
-  await db.query(
-    "UPDATE voters SET voted = 1, vote_date = ? WHERE voter_id = ?",
-    [now, voter_id]
-  );
-
-  res.json({ message: "Vote submitted" });
-};
-*/
-const db = require("../config/db");
-
 // SUBMIT VOTE (supports multiple selections)
 exports.submitVote = async (req, res) => {
   try {
-    const { voter_id, selections } = req.body;
+    const { voter_id, voting_location, selections } = req.body;
 
     // Validate payload
     if (!voter_id || !Array.isArray(selections) || selections.length === 0) {
@@ -37,7 +16,7 @@ exports.submitVote = async (req, res) => {
 
     // Check if voter exists
     const [voter] = await db.query(
-      "SELECT * FROM voters WHERE id = ?",
+      "SELECT * FROM voters WHERE voter_id = ?",
       [voter_id]
     );
 
@@ -69,15 +48,15 @@ exports.submitVote = async (req, res) => {
       }
 
       await db.query(
-        "INSERT INTO votes (voter_id, position_id, candidate_id) VALUES (?, ?, ?)",
+        "INSERT INTO votes (voter_id, position_id, candidate_id, vote_time) VALUES (?, ?, ?, NOW())",
         [voter_id, sel.position_id, sel.candidate_id]
       );
     }
 
     // Mark voter as voted + set vote_date
     await db.query(
-      "UPDATE voters SET voted = 1, vote_date = NOW() WHERE id = ?",
-      [voter_id]
+      "UPDATE voters SET voted = 1, vote_date = NOW(), voting_location=? WHERE voter_id = ?",
+      [voting_location, voter_id]
     );
 
     res.json({
@@ -96,17 +75,28 @@ exports.submitVote = async (req, res) => {
   }
 };
 
-
-
-
+// SUMMARY RESULTS
 exports.summary = async (req, res) => {
-  const [rows] = await db.query(`
-    SELECT c.full_name, c.photo, COUNT(v.id) AS votes, p.position_name AS position_name
-    FROM candidates c
-    LEFT JOIN votes v ON c.id = v.candidate_id
-    LEFT JOIN positions p ON c.position_id = p.id
-    GROUP BY c.id
-  `);
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        c.full_name, 
+        c.photo, 
+        COUNT(v.id) AS votes, 
+        p.position_name AS position_name
+      FROM candidates c
+      LEFT JOIN votes v ON c.id = v.candidate_id
+      LEFT JOIN positions p ON c.position_id = p.id
+      GROUP BY c.id
+    `);
 
-  res.json(rows);
+    res.json(rows);
+  } catch (err) {
+    console.error("Summary error:", err);
+    res.status(500).json({
+      title: "Server Error",
+      message: "Failed to fetch summary.",
+      status: "error"
+    });
+  }
 };

@@ -1,0 +1,40 @@
+.location-view-container {
+  padding: 20px;
+}
+
+.location-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.total-votes-card {
+  background: #007bff;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.total-votes-number {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.location-columns {
+  display: flex;
+  gap: 20px;
+}
+
+.column {
+  flex: 1;
+}
+
+.location-card {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+}

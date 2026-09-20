@@ -1,0 +1,4 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE voting_system.voters;
+TRUNCATE TABLE voting_system.votes;
+SET FOREIGN_KEY_CHECKS = 1;

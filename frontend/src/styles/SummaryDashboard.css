@@ -85,20 +85,44 @@
 }
 .toggle-buttons {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  flex-wrap: wrap;        /* ⭐ allows wrapping instead of scrolling */
+  gap: 10px;              /* spacing between buttons */
+  justify-content: center;
+  padding: 10px;
 }
 
+
 .toggle-buttons button {
-  padding: 10px 20px;
+  flex: 1 1 140px;        /* ⭐ responsive width */
+  padding: 10px 14px;
+  font-size: 16px;
   border-radius: 8px;
   border: none;
-  background: #ddd;
+  background: #007bff;
+  color: white;
   cursor: pointer;
-  font-weight: bold;
+  text-align: center;
 }
 
 .toggle-buttons .active-toggle {
-  background: #0078ff;
-  color: white;
+  background: #0056b3;
+}
+@media (max-width: 480px) {
+  .toggle-buttons {
+    flex-direction: column;   /* ⭐ stack vertically */
+    align-items: stretch;
+  }
+
+  .toggle-buttons button {
+    width: 100%;              /* full width on iPhone */
+    font-size: 18px;          /* easier to tap */
+    padding: 14px;
+  }
+}
+
+.summary-percent {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0078ff;
+  margin-top: 5px;
 }

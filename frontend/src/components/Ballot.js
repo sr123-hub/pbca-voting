@@ -66,7 +66,12 @@ export default function Ballot({ voter, onDone }) {
         candidate_id: selected[position_id]
       }));
 
-      const res = await submitVote({ voter_id: voter.voter_id, selections });
+      //const res = await submitVote({ voter_id: voter.voter_id, selections });
+      const res = await submitVote({
+        voter_id: voter.voter_id,
+        voting_location: voter.voting_location,
+        selections
+      });
 
       setLoading(false);
 

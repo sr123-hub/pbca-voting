@@ -13,8 +13,8 @@ INSERT INTO positions (position_name) VALUES
 ('Organization Secretary'),
 ('Sports Secretary'),
 ('Assistant Sports Secretary'),
-('Cultural Secretary'),
-('Assistant Cultural Secretary'),
+('Joint Cultural Secretary'),
+('Assistant Joint Cultural Secretary'),
 ('Executive Member 1'),
 ('Executive Member 2');
 
@@ -22,10 +22,13 @@ CREATE TABLE voters (
     voter_id VARCHAR(50) PRIMARY KEY,
     full_name VARCHAR(100),
     address VARCHAR(255),
+    city VARCHAR(100),
+    state VARCHAR(50),
+    zipcode VARCHAR(20),
     phone VARCHAR(20),
-    ticket_received BOOLEAN DEFAULT 0,
     voted BOOLEAN DEFAULT 0,
-    vote_date DATETIME
+    vote_date DATETIME,
+    voting_location VARCHAR(255)
 );
 
 CREATE TABLE candidates (

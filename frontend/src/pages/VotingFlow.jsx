@@ -12,9 +12,12 @@ export default function VotingFlow() {
     setVoter(null);
   };
 
+
+
+
   return (
     <div style={{ padding: 20 }}>
-      <h1>Election Voting System</h1>
+      <h1>PBCA Election 2026</h1>
 
       {step === "lookup" && (
         <VoterLookup

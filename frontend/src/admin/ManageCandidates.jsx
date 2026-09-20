@@ -14,6 +14,7 @@ export default function ManageCandidates() {
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(false);
   const [alert, setAlert] = useState({ show: false });
+  const [filterText, setFilterText] = useState("");
 
   const [newCandidate, setNewCandidate] = useState({
     full_name: "",
@@ -91,9 +92,12 @@ export default function ManageCandidates() {
     }
   ];
 
-  const filtered = candidates.filter(c =>
-    c.full_name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filtered = Array.isArray(candidates)
+  ? candidates.filter(c =>
+      (c.full_name || "").toLowerCase().includes(filterText.toLowerCase()) ||
+      (c.position_name || "").toLowerCase().includes(filterText.toLowerCase())
+    )
+  : [];
 
   return (
     <div className="admin-page">
@@ -103,7 +107,7 @@ export default function ManageCandidates() {
         className="search-box"
         placeholder="Search candidates..."
         value={filter}
-        onChange={e => setFilter(e.target.value)}
+        onChange={e => setFilterText(e.target.value)}
       />
 
       <button className="action-btn add-btn" onClick={() => setAdding(true)}>

@@ -70,3 +70,32 @@ exports.login = async (req, res) => {
 
   res.json({ success: true, role: rows[0].role });
 };
+
+//const db = require("../config/db");
+
+// RESET ALL VOTES
+exports.resetVotes = async (req, res) => {
+  try {
+    // Clear votes table
+    await db.query("SET FOREIGN_KEY_CHECKS = 0");
+    await db.query("TRUNCATE TABLE votes");
+    await db.query("SET FOREIGN_KEY_CHECKS = 1");
+
+    // Reset voters
+    await db.query("UPDATE voters SET voted = 0, vote_date = NULL");
+
+    res.json({
+      status: "success",
+      title: "Votes Reset",
+      message: "All votes have been cleared and voters have been reset."
+    });
+
+  } catch (err) {
+    console.error("Reset votes error:", err);
+    res.status(500).json({
+      status: "error",
+      title: "Server Error",
+      message: "Failed to reset votes."
+    });
+  }
+};

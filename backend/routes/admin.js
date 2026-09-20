@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-//const controller = require("../controllers/adminController");
+const adminController = require("../controllers/adminController");
 const db = require("../config/db");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-const adminController = require("../controllers/adminController");
-
 router.post("/import-voters", upload.single("file"), adminController.importVoters);
-
+router.post("/reset-votes", adminController.resetVotes);
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 

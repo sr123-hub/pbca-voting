@@ -20,19 +20,19 @@
   text-align: center;
 }
 
-/*.position-divider {
+S.position-divider {
   border: 0;
   height: 2px;
   background: #ccc;
   margin-bottom: 20px;
-}*/
+}/*
 .position-divider {
   border: none;
-  border-top: 4px solid #444;   /* thickness + darker color */
-  margin: 10px 0;               /* spacing */
-  width: 100%;                  /* full width */
+  border-top: 4px solid #444;   /* thickness + darker color *
+  margin: 10px 0;               /* spacing *
+  width: 20%;                  /* full width *
 }
-
+*/
 
 /* Candidate Row (horizontal layout) */
 .candidate-row {

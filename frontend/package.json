@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@react-google-maps/api": "^2.20.8",
+    "bootstrap": "^5.3.8",
     "chart.js": "^4.4.0",
+    "jsvectormap": "^1.7.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.10",
     "react-chartjs-2": "^5.2.0",
-    "react-data-table-component": "^8.8.1",
+    "react-data-table-component": "^8.10.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.18.2",
     "react-scripts": "^5.0.1"

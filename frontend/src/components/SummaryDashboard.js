@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getSummary } from "../api/api";
 import { Bar } from "react-chartjs-2";
+import LocationView from "../pages/LocationView";
 import "../styles/SummaryDashboard.css";
+import "../styles/Winners.css";
+
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,8 +35,11 @@ const positionColors = {
 };
 
 export default function SummaryDashboard() {
+  const [view, setView] = useState("cards"); // cards | chart | voters
   const [data, setData] = useState([]);
-  const [view, setView] = useState("cards"); // "cards" or "chart"
+
+
+
 
   useEffect(() => {
     const load = async () => {
@@ -43,11 +50,14 @@ export default function SummaryDashboard() {
         console.error("Failed to load summary:", err);
         setData([]);
       }
+
     };
+
     load();
   }, []);
 
-  // ✅ Group candidates by position safely
+
+  // Group candidates by position
   const grouped = Array.isArray(data)
     ? data.reduce((acc, row) => {
         acc[row.position_name] = acc[row.position_name] || [];
@@ -56,7 +66,6 @@ export default function SummaryDashboard() {
       }, {})
     : {};
 
-  // ✅ Build grouped chart (split bars per candidate)
   const positions = Object.keys(grouped);
   const datasets = [];
 
@@ -64,9 +73,7 @@ export default function SummaryDashboard() {
     grouped[position].forEach(candidate => {
       datasets.push({
         label: candidate.full_name,
-        data: positions.map(pos =>
-          pos === position ? candidate.votes : 0
-        ),
+        data: positions.map(pos => (pos === position ? candidate.votes : 0)),
         backgroundColor: positionColors[position] || "#999",
         borderColor: positionColors[position] || "#999",
         borderWidth: 2
@@ -74,10 +81,48 @@ export default function SummaryDashboard() {
     });
   });
 
+  // Calculate percentages per position
+const percentageData = positions.map(position => {
+  const candidates = grouped[position];
+  const totalVotes = candidates.reduce((sum, c) => sum + c.votes, 0);
+
+  return {
+    position,
+    candidates: candidates.map(c => ({
+      name: c.full_name,
+      votes: c.votes,
+      percent: totalVotes === 0 ? 0 : ((c.votes / totalVotes) * 100).toFixed(1)
+    }))
+  };
+});
+
+
   const chartData = {
     labels: positions,
     datasets
   };
+
+// Build winners list
+const winners = Object.keys(grouped).map(position => {
+  const candidates = grouped[position];
+  const totalVotes = candidates.reduce((sum, c) => sum + c.votes, 0);
+
+  const winner = candidates.reduce((max, c) =>
+    c.votes > max.votes ? c : max
+  );
+
+  return {
+    position,
+    winnerName: winner.full_name,
+    winnerPhoto: winner.photo,
+    winnerVotes: winner.votes,
+    percent:
+      totalVotes === 0
+        ? 0
+        : ((winner.votes / totalVotes) * 100).toFixed(1)
+  };
+});
+
 
   return (
     <div className="summary-container">
@@ -91,12 +136,27 @@ export default function SummaryDashboard() {
         >
           Cards View
         </button>
+
         <button
-          className={view === "chart" ? "active-toggle" : ""}
-          onClick={() => setView("chart")}
+          className={view === "percent" ? "active-toggle" : ""}
+          onClick={() => setView("percent")}
         >
-          Chart View
+          Percentage View
         </button>
+        <button
+          className={view === "location" ? "active-toggle" : ""}
+          onClick={() => setView("location")}
+        >
+          Location View
+        </button>
+
+        <button
+          className={view === "winners" ? "active-toggle" : ""}
+          onClick={() => setView("winners")}
+        >
+          Winners Panel
+        </button>
+
       </div>
 
       {/* Cards View */}
@@ -166,6 +226,56 @@ export default function SummaryDashboard() {
           )}
         </div>
       )}
+      {/* Percent View */}
+      {view === "percent" && (
+        <div className="percent-view">
+          {percentageData.map((item, idx) => (
+            <div key={idx} className="summary-section">
+              <h3 className="summary-position">{item.position}</h3>
+              <hr className="summary-divider" />
+
+              <div className="summary-row">
+                {item.candidates.map((c, i) => (
+                  <div key={i} className="summary-card" style={{ borderColor: positionColors[item.position] }}>
+                    <div className="summary-name">{c.name}</div>
+                    <div className="summary-votes">{c.votes} votes</div>
+                    <div className="summary-percent">{c.percent}%</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {/* Location View */}
+       {view === "location" && (
+          <div className="summary-section">
+            <LocationView />
+          </div>
+        )}
+
+
+      {/* Winners View  */}
+      {view === "winners" && (
+        <div className="winner-grid">
+          {winners.map((w, idx) => (
+            <div key={idx} className="winner-card">
+              <h3 className="winner-position">{w.position}</h3>
+
+              <img
+                src={`http://localhost:5000/uploads/${w.winnerPhoto}`}
+                alt={w.winnerName}
+                className="winner-photo"
+              />
+
+              <div className="winner-name">{w.winnerName}</div>
+              <div className="winner-votes">{w.winnerVotes} votes</div>
+              <div className="winner-percent">{w.percent}%</div>
+            </div>
+          ))}
+        </div>
+      )}
+
     </div>
   );
 }

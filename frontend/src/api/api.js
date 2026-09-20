@@ -29,11 +29,11 @@ export async function request(endpoint, options = {}) {
 ------------------------------*/
 
 // GET ALL CANDIDATES
-export const getCandidates = () => request("/candidates");
+export const getCandidates = () => request("/api/candidates");
 
 // ADD CANDIDATE
 export const addCandidate = async formData => {
-  const res = await fetch(`${API_BASE_URL}/candidates`, {
+  const res = await fetch(`${API_BASE_URL}/api/candidates`, {
     method: "POST",
     body: formData
   });
@@ -42,7 +42,7 @@ export const addCandidate = async formData => {
 
 // UPDATE CANDIDATE
 export const updateCandidate = async (id, formData) => {
-  const res = await fetch(`${API_BASE_URL}/candidates/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/api/candidates/${id}`, {
     method: "PUT",
     body: formData
   });
@@ -51,38 +51,38 @@ export const updateCandidate = async (id, formData) => {
 
 // DELETE CANDIDATE
 export const deleteCandidate = id =>
-  request(`/candidates/${id}`, {
+  request(`/api/candidates/${id}`, {
     method: "DELETE"
   });
 
 /* -----------------------------
    VOTERS API
 ------------------------------*/
-export const getAllVoters = () => request("/voters");
+export const getAllVoters = () => request("/api/voters");
 
-export const getVoters = () => request("/voters");
+export const getVoters = () => request("/api/voters");
 
-export const getVoter = id => request(`/voters/${id}`);
+export const getVoter = id => request(`/api/voters/${id}`);
 
 export const addVoter = data =>
-  request("/voters", {
+  request("/api/voters", {
     method: "POST",
     body: JSON.stringify(data)
   });
 
 export const updateVoter = (id, data) =>
-  request(`/voters/${id}`, {
+  request(`/api/voters/${id}`, {
     method: "PUT",
     body: JSON.stringify(data)
   });
 
 export const deleteVoter = id =>
-  request(`/voters/${id}`, {
+  request(`/api/voters/${id}`, {
     method: "DELETE"
   });
 
 export const lookupVoter = voter_id =>
-  request("/voters/lookup", {
+  request("/api/voters/lookup", {
     method: "POST",
     body: JSON.stringify({ voter_id })
   });
@@ -101,14 +101,14 @@ export const updateVotingWindow = data =>
   });
 
 export const submitVote = (payload) =>
-  request("/voting/submit", {
+  request("/api/votes/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
 
 
-export const getSummary = () => request("/summary");
+export const getSummary = () => request("/api/summary");
 
 export const importVoters = (file) => {
   const formData = new FormData();
@@ -125,4 +125,15 @@ export const importVoters = (file) => {
     });
 };
 
+export const API = import.meta.env.VITE_API_URL;
 
+export const getStateSummary = () =>
+  request("/api/summary/states");
+
+export const resetVotes = () =>
+  request("/admin/reset-votes", {
+    method: "POST"
+  });
+
+  export const getLocationSummary = () =>
+  request("/api/summary/locations");

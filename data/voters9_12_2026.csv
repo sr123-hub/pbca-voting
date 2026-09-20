@@ -1,7 +1,7 @@
 voter_id,full_name,address,phone,ticket_received,voted,vote_date,city,state,zipcode
-1,"A11dhor Bisw11qqnnn","12-1 John Streetqqq","(718) 263-3104",0,0,NULL,"Jackson Heights",NY,11367
-10,"Elaine Quiah33","136-17B Jewel Avenue",7182633104,0,0,NULL,hhhh,bbb,11367
-11,"A11dhor Bisw1","12-1 John Streetqqq","(718) 263-3104",0,0,NULL,"Jackson Heightssss",NYdd,11367
+pny0001,"A11dhor Bisw11qqnnn","12-1 John Streetqqq","(718) 263-3104",0,0,NULL,"Jackson Heights",NY,11367
+pny0010,"Elaine Quiah33","136-17B Jewel Avenue",7182633104,0,0,NULL,hhhh,bbb,11367
+Pny0011,"A11dhor Bisw1","12-1 John Streetqqq","(718) 263-3104",0,0,NULL,"Jackson Heightssss",NYdd,11367
 110,"Elaine Quiah3333","136-17B Jewel Avenue",7182633104,0,0,NULL,hhhh,bbb,11367
 111,"A11dhor Bisw1","12-1 John Streetqqq","(718) 263-3104",0,0,NULL,"Jackson Heightssss",NYdd,11367
 112,"John Smith","123 street address",345-445-444,0,0,NULL,Flushing,NY,11234

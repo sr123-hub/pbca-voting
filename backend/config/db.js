@@ -1,4 +1,4 @@
-// db.js
+// backend/config/db.js
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 
@@ -27,9 +27,14 @@ const railwayConfig = {
 const dbConfig = isRailway ? railwayConfig : localConfig;
 
 // Create promise-based pool
-const db = mysql.createPool(dbConfig);
+const pool = mysql.createPool({
+  ...dbConfig,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-// Log active DB
 console.log("Connected to DB:", isRailway ? "Railway" : "Local MySQL");
 
-module.exports = db;
+// ✅ CommonJS export
+module.exports = pool;
