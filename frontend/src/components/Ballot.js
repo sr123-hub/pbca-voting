@@ -3,6 +3,7 @@ import { getCandidates, submitVote } from "../api/api";
 import "../styles/Ballot.css";
 import "../styles/global.css";
 import AlertModal from "../components/AlertModal";
+import { API } from "../api/api";
 
 export default function Ballot({ voter, onDone }) {
   const [candidates, setCandidates] = useState([]);
@@ -146,11 +147,12 @@ export default function Ballot({ voter, onDone }) {
               }`}
               onClick={() => handleSelect(c.position_id, c.id)}
             >
-              <img
-                src={`http://localhost:5000/uploads/${c.photo}`}
-                alt={c.full_name}
-                className="candidate-photo"
-              />
+            <img
+              src={`${API}/uploads/${c.photo}`}
+              alt={c.full_name}
+              className="candidate-photo"
+            />
+
 
               <div className="candidate-info">
                 <div className="candidate-name">{c.full_name}</div>
