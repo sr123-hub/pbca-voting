@@ -20,7 +20,10 @@ const railwayConfig = {
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT
+  port: process.env.MYSQLPORT,
+  ssl: {
+    rejectUnauthorized: false   // ⭐ REQUIRED for Railway
+  }
 };
 
 // Choose correct config
@@ -36,5 +39,4 @@ const pool = mysql.createPool({
 
 console.log("Connected to DB:", isRailway ? "Railway" : "Local MySQL");
 
-// ✅ CommonJS export
 module.exports = pool;
