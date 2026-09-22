@@ -3,17 +3,16 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 
-// Detect environment
-const isProduction = process.env.RAILWAY_ENVIRONMENT === "true";
+// Detect Railway automatically
+const isProduction = !!process.env.MYSQLHOST;
 
-// Production → Railway
-// Local → localhost MySQL
+// Create pool
 const pool = mysql.createPool({
-  host: isProduction ? process.env.MYSQLHOST : "localhost",
-  user: isProduction ? process.env.MYSQLUSER : "root",
-  password: isProduction ? process.env.MYSQLPASSWORD : "pbcavoting2026",
-  database: isProduction ? process.env.MYSQLDATABASE : "voting_system",
-  port: isProduction ? Number(process.env.MYSQLPORT) : 3306,
+  host: process.env.MYSQLHOST || "localhost",
+  user: process.env.MYSQLUSER || "root",
+  password: process.env.MYSQLPASSWORD || "",
+  database: process.env.MYSQLDATABASE || "voting_system",
+  port: Number(process.env.MYSQLPORT) || 3306,
 
   waitForConnections: true,
   connectionLimit: 10,
@@ -21,10 +20,10 @@ const pool = mysql.createPool({
   connectTimeout: 20000,
 
   // Railway requires SSL
-  ssl: isProduction ? { rejectUnauthorized: false } : false
+  ssl: process.env.MYSQLHOST ? { rejectUnauthorized: false } : false
 });
 
-// Log which DB you're connected to
-console.log("Connected to DB:", isProduction ? "Railway (Production)" : "Local MySQL");
+// Log active DB
+console.log("Connected to DB:", process.env.MYSQLHOST ? "Railway" : "Local MySQL");
 
 module.exports = pool;
