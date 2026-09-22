@@ -1,12 +1,4 @@
 // backend/server.js
-const pool = require("./config/db");
-setInterval(async () => {
-  try {
-    await pool.query("SELECT 1");
-  } catch (err) {
-    console.log("DB keep-alive failed:", err.message);
-  }
-}, 30000);
 
 require("dotenv").config();
 const express = require("express");
@@ -34,6 +26,8 @@ app.use(
 );
 
 app.use(express.json());
+// Import DB pool (CRITICAL)
+const pool = require("./config/db");
 
 // Serve uploaded candidate images
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -58,13 +52,18 @@ app.get("/", (req, res) => {
 // Netlify serves the frontend.
 // Render serves ONLY the backend.
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
-
+// Keep-alive (CRITICAL for Railway + Render)
 setInterval(async () => {
   try {
     await pool.query("SELECT 1");
+    console.log("DB keep-alive OK");
   } catch (err) {
     console.log("DB keep-alive failed:", err.message);
   }
 }, 30000);
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});
