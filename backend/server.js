@@ -1,4 +1,13 @@
 // backend/server.js
+const pool = require("./config/db");
+setInterval(async () => {
+  try {
+    await pool.query("SELECT 1");
+  } catch (err) {
+    console.log("DB keep-alive failed:", err.message);
+  }
+}, 30000);
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");

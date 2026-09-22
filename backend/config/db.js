@@ -1,58 +1,30 @@
 // backend/config/db.js
+
 require("dotenv").config();
-//const mysql = require("mysql2/promise");
 const mysql = require("mysql2/promise");
 
+// Detect environment
+const isProduction = process.env.RAILWAY_ENVIRONMENT === "true";
+
+// Production → Railway
+// Local → localhost MySQL
 const pool = mysql.createPool({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
+  host: isProduction ? process.env.MYSQLHOST : "localhost",
+  user: isProduction ? process.env.MYSQLUSER : "root",
+  password: isProduction ? process.env.MYSQLPASSWORD : "pbcavoting2026",
+  database: isProduction ? process.env.MYSQLDATABASE : "voting_system",
+  port: isProduction ? Number(process.env.MYSQLPORT) : 3306,
+
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
   connectTimeout: 20000,
-  ssl: { rejectUnauthorized: false }
+
+  // Railway requires SSL
+  ssl: isProduction ? { rejectUnauthorized: false } : false
 });
 
-module.exports = pool;
-
-// Detect Railway environment
-const isRailway = process.env.RAILWAY_ENVIRONMENT !== undefined;
-
-// Local development config
-const localConfig = {
-  host: "localhost",
-  user: "root",
-  password: "pbcavoting2026",
-  database: "voting_system",
-  port: 3306
-};
-
-// Railway production config
-const railwayConfig = {
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
-  ssl: {
-    rejectUnauthorized: false   // ⭐ REQUIRED for Railway
-  }
-};
-
-// Choose correct config
-const dbConfig = isRailway ? railwayConfig : localConfig;
-
-// Create promise-based pool
-const pool = mysql.createPool({
-  ...dbConfig,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
-});
-
-console.log("Connected to DB:", isRailway ? "Railway" : "Local MySQL");
+// Log which DB you're connected to
+console.log("Connected to DB:", isProduction ? "Railway (Production)" : "Local MySQL");
 
 module.exports = pool;
